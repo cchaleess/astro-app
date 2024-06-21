@@ -1,0 +1,57 @@
+---
+//Etiquetas Dinamicas
+// @ts-ignore
+const Card = "div";
+const Container = "div";
+
+export interface CardProps {
+	nombre: string;
+	profesion?: string;
+	imagen: boolean;
+}
+
+const { nombre, profesion, imagen } = Astro.props;
+---
+
+<Card class="card">
+	<img
+		src={imagen ? "/images/bird_1.jpg" : "/images/empty.png"}
+		style="width : 100%"
+		alt="imagen"
+	/>
+	<Container class="container">
+		<h4 class="card-title">{nombre}</h4>
+		<p class="card-text">{profesion}</p>
+		<slot name="desc">
+			<p>Texto slot por defecto.</p>
+		</slot>
+	</Container>
+</Card>
+
+<style>
+	.card {
+		box-shadow: 0 4px 8px 0 rgba(248, 246, 246, 0.2);
+		transition: 0.3s;
+		width: 300px;
+		padding: 20px;
+		margin: 10px;
+	}
+	.card:hover {
+		box-shadow: 0 8px 16px 0 rgb(255, 255, 255);
+	}
+
+	.container {
+		margin-left: auto;
+		margin-right: auto;
+		/* text-align: center; */
+		padding: 10px;
+	}
+
+	.card-title {
+		font-size: 20px;
+	}
+
+	.card-text {
+		font-size: 16px;
+	}
+</style>

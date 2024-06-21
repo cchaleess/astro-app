@@ -1,0 +1,18 @@
+{
+  "extends": "astro/tsconfigs/base",
+  // ALIAS
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@layouts/*": [
+        "src/layouts/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+    }
+  }
+}
