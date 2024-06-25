@@ -1,28 +1,35 @@
 ---
+import Nav from "../components/Header.astro";
+import Title from "@components/Title.astro";
+
 const { frontmatter } = Astro.props;
-const { title, description } = frontmatter;
 ---
 
-<html>
+<!doctype html>
+<html lang="en">
         <head>
-                <title>{frontmatter.title}</title>
-                <meta name="description" content="{{ description }}" />
+                <meta charset="UTF-8" />
+                <meta name="description" content="Astro description" />
+                <meta name="viewport" content="width=device-width" />
+                <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+                <meta name="generator" content={Astro.generator} />
+                <title>BLOG</title>
         </head>
-
         <body>
-                <h1>{frontmatter.title}</h1>
-                <p>{frontmatter.fecha}</p>
-
+                <Nav />
                 <div class="container">
+                        <Title
+                                title={frontmatter.title}
+                                subtitle={`Post by: ${frontmatter.author}`}
+                                description={frontmatter.description}
+                        />
                         <slot />
                 </div>
         </body>
+        <style is:global>
+                .container {
+                        margin: 0 auto;
+                        padding: 0 300px;
+                }
+        </style>
 </html>
-
-<style>
-        .container {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 0 20px;
-        }
-</style>

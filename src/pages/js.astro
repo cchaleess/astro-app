@@ -4,7 +4,7 @@ import Title from "@components/Title.astro";
 import BlogPreview from "@components/BlogPreview.astro";
 
 // Cargar los posts
-let posts = await Astro.glob("./Post/**/*.md");
+let posts = await Astro.glob("./Post/js/*.md");
 
 posts = posts.sort((postA, postB) => {
 	return (
@@ -14,10 +14,10 @@ posts = posts.sort((postA, postB) => {
 });
 ---
 
-<Layout title="Bienvenido al blog.">
+<Layout title="Javascript Posts.">
 	<Title
-		title="Este es el titulo"
-		subtitle="Este es el subtitulo"
+		title="Javascript"
+		subtitle="Este es el subtitulo Javascript"
 		description="Esta es la descripcion"
 	/>
 
