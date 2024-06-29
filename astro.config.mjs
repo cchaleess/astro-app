@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-// https://astro.build/config
 export default defineConfig({
-    output: 'server', // SSR
+    // Integraciones y otras configuraciones
+    output: 'server', // Descomenta si necesitas SSR
 });

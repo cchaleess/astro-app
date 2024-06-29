@@ -1,0 +1,32 @@
+---
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjc2N2EwZTczNWY5MjRiYTJjMGJlMzBmMTQ3Yjc1NCIsIm5iZiI6MTcxOTMyNjc1MC4xMjMwMTksInN1YiI6IjY2N2FjZmM5MzdjZGFmMTQ4MDNiNmIxNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gj5usaTrIfI7YTqOoUz6-iciDCIfYWrRavTIyZ056KE'
+  }
+};
+
+const movies = await fetch(
+  'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1',
+  options
+)
+  .then(response => response.json())
+  .then(data => data)
+  .catch(err => console.error('error:' + err));
+---
+<div class="row">
+  {movies.results.map(movie => (
+    <div class="col-lg-3">
+      <div class="card mt-4" style="width: 20rem;">
+        <a href={`/detail/${movie.id}`}>
+          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} class="card-img-top" alt={movie.title} />
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{movie.title}</h5>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

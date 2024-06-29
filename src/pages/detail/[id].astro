@@ -1,0 +1,79 @@
+---
+import Layout from "@layouts/Layout.astro";
+
+const { id } = Astro.params;
+
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjc2N2EwZTczNWY5MjRiYTJjMGJlMzBmMTQ3Yjc1NCIsIm5iZiI6MTcxOTMyNjc1MC4xMjMwMTksInN1YiI6IjY2N2FjZmM5MzdjZGFmMTQ4MDNiNmIxNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.gj5usaTrIfI7YTqOoUz6-iciDCIfYWrRavTIyZ056KE'
+  }
+};
+
+const movie = await fetch(
+  `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+  options
+)
+  .then(response => response.json())
+  .then(data => data)
+  .catch(err => console.error('error:' + err));
+
+
+
+//Trailer
+
+const trailer = await fetch(
+  `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+  options
+)
+  .then(response => response.json())
+  .then(data => data)
+  .catch(err => console.error('error:' + err));
+---
+
+<Layout title="Detail">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card">
+          <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} class="card-img-top img-fluid rounded-start" alt={movie.title} />
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-dark">{movie.title}</h1>
+            <h4 class="card-subtitle mb-2 text-muted">{movie.tagline}</h4>
+            <p class="card-text">{movie.overview}</p>
+            <p>
+              <span class="badge bg-secondary">{movie.release_date}</span>
+            </p>
+            <h1>
+              <span class="badge bg-danger">{movie.vote_average}</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!----------- TRAILER ------------->
+    <div class="container mt-5">
+        <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-dark">Trailer</h1>
+                <iframe width="100%" height="500" src={`https://www.youtube.com/embed/${trailer.results[0].key}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+<!----------- END TRAILER ------------->
+
+
+
+</Layout>
