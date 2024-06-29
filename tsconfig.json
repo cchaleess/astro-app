@@ -1,6 +1,5 @@
 {
   "extends": "astro/tsconfigs/base",
-  // ALIAS
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -12,7 +11,9 @@
       ],
       "@styles/*": [
         "src/styles/*"
-      ],
-    }
+      ]
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }
