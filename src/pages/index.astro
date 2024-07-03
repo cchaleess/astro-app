@@ -1,18 +1,11 @@
 ---
 import Layout from "@layouts/Layout.astro";
 
-import Titulo from "@components/Titulo.astro";
-import Card from "@components/Card.astro";
-import Json from "@components/Json.astro";
 ---
 
 <Layout title="Bienvenido a Astro.">
 	<main>
-		<Titulo />
-		<Card nombre="Pedro" profesion="Carpintero" imagen={true} />
-		<Card nombre="Carlos" profesion="Pizzero" imagen={false}>
-			<p slot="desc">Este es un texto de ejemplo.</p>
-		</Card>
-		<Json />
+		<h1>¡Hola, mundo!</h1>
+		<p>¡Bienvenido a Astro!</p>
 	</main>
 </Layout>
