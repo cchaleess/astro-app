@@ -1,0 +1,83 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getEntryBySlug } from "astro:content";
+
+const { slug } = Astro.params;
+const post = await getEntryBySlug("blog", slug);
+
+if (!post) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+  <main class="post-detail">
+    <section class="post-content" style={`background-image: url(${post.data.image});`}>
+      <div class="content-overlay">
+        <Content />
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .post-detail {
+       display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+margin: 0 auto;;
+
+  }
+
+  .post-content {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 15%;
+    color: #fff;
+    height: 100vh;
+  }
+
+  .content-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para mejorar la legibilidad del texto */
+    padding: 2rem;
+    border-radius: 8px;
+  }
+
+  .post-content h1, .post-content h2, .post-content h3, .post-content h4 {
+    color: #fff;
+  }
+
+  .post-content p {
+    color: #fff;
+  }
+
+  .post-content a {
+    color: #0070f3;
+    text-decoration: none;
+  }
+
+  .post-content a:hover {
+    text-decoration: underline;
+  }
+
+  .post-content img {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .post-content ul, .post-content ol {
+    margin: 1rem 0 1rem 2rem;
+  }
+
+  .post-content blockquote {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente para mejorar la legibilidad del texto */
+    border-left: 4px solid #ccc;
+  }
+</style>

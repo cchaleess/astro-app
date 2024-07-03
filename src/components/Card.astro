@@ -5,19 +5,20 @@ export interface CardProps {
   title: string;
   description: string;
   image: boolean;
+  href: string;
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, href } = Astro.props;
 ---
 
-<li class="card">
+<a href={href} class="card">
   {image && <img src={image} alt="Imagen" />}
   <h4 class="card-title">{title}</h4>
   <p class="card-text">{description}</p>
   <slot name="desc">
     <p>Texto slot por defecto.</p>
   </slot>
-</li>
+</a>
 
 <style>
   .card {
@@ -32,6 +33,12 @@ const { title, description, image } = Astro.props;
     width: 100%; /* Asegura que todas las tarjetas tengan la misma anchura */
     max-width: 300px; /* Tamaño máximo de las tarjetas */
     height: 100%; /* Asegura que todas las tarjetas tengan la misma altura */
+    text-decoration: none; /* Eliminar subrayado del enlace */
+    color: inherit; /* Heredar el color del texto */
+  }
+
+  .card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Efecto hover */
   }
 
   .card-title {

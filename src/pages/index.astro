@@ -6,10 +6,8 @@ import { getEntryBySlug } from "astro:content";
 
 const data = await getCollection("blog");
 const destacado = await getEntryBySlug("blog", "post1");
-// const filtrado = data.filter((post) => post.slug !== "post1"); // opcion 1 para filtrar
-const filtrado = data.filter((post) => post.data.category == 'violin'); // opcion 2 para filtrar
+const filtrado = data.filter((post) => post.slug !== "post1");
 
-console.log(data);
 ---
 
 <Layout title="Astro Blog">
@@ -17,28 +15,25 @@ console.log(data);
 
   <div class="destacado">
     <h2>Destacado</h2>
-    <Card title={destacado.data.title} description={destacado.data.description} image={destacado.data.image}>
-      <p slot="desc">{destacado.data.description}</p>
+    <Card title={destacado.data.title} description={destacado.data.description} image={destacado.data.image} href={`/blog/${destacado.slug}`}>
     </Card>
   </div>
 
-	<div class="filtrado">
-
+  <div class="filtrado">
+	<ul class="card-container">
 		<h2>Filtrado</h2>
-		<ul class="card-container">
-			{filtrado.map((post) => (
-				<Card title={post.data.title} description={post.data.description} image={post.data.image}>
-					<p slot="desc">{post.data.description}</p>
-				</Card>
-			))}
-		</ul>
+	  {filtrado.map((post) => (
+		<Card title={post.data.title} description={post.data.description} image={post.data.image} href={`/blog/${post.slug}`}>
+		</Card>
+	  ))}
+	</ul>
+  </div>	
 
-	</div>
+
 
   <ul class="card-container">
     {data.map((post) => (
-      <Card title={post.data.title} description={post.data.description} image={post.data.image}>
-        <p slot="desc">{post.data.description}</p>
+      <Card title={post.data.title} description={post.data.description} image={post.data.image} href={`/blog/${post.slug}`}>
       </Card>
     ))}
   </ul>
@@ -58,10 +53,24 @@ console.log(data);
     border-radius: 8px; /* Bordes redondeados */
   }
 
+.filtrado {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border: 3px solid gold; /* Borde más grueso y de un color llamativo */
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+	margin: 1rem;
+	padding: 1rem; /* Añadir relleno interno */
+	border-radius: 8px; /* Bordes redondeados */
+  }
+
+
+
   .destacado h2 {
     margin: 0 0 1rem 0; /* Margen inferior para separar el título del contenido */
-	color: black;
-	text-transform: uppercase;
+    color: black;
+    text-transform: uppercase;
   }
 
   .card-container {
