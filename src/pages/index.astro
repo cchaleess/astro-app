@@ -1,18 +1,82 @@
 ---
-import Layout from "@layouts/Layout.astro";
-
-import Titulo from "@components/Titulo.astro";
 import Card from "@components/Card.astro";
-import Json from "@components/Json.astro";
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import { getEntryBySlug } from "astro:content";
+
+const data = await getCollection("blog");
+const destacado = await getEntryBySlug("blog", "post1");
+// const filtrado = data.filter((post) => post.slug !== "post1"); // opcion 1 para filtrar
+const filtrado = data.filter((post) => post.data.category == 'violin'); // opcion 2 para filtrar
+
+console.log(data);
 ---
 
-<Layout title="Bienvenido a Astro.">
-	<main>
-		<Titulo />
-		<Card nombre="Pedro" profesion="Carpintero" imagen={true} />
-		<Card nombre="Carlos" profesion="Pizzero" imagen={false}>
-			<p slot="desc">Este es un texto de ejemplo.</p>
-		</Card>
-		<Json />
-	</main>
+<Layout title="Astro Blog">
+  <h1>Blog</h1>
+
+  <div class="destacado">
+    <h2>Destacado</h2>
+    <Card title={destacado.data.title} description={destacado.data.description} image={destacado.data.image}>
+      <p slot="desc">{destacado.data.description}</p>
+    </Card>
+  </div>
+
+	<div class="filtrado">
+
+		<h2>Filtrado</h2>
+		<ul class="card-container">
+			{filtrado.map((post) => (
+				<Card title={post.data.title} description={post.data.description} image={post.data.image}>
+					<p slot="desc">{post.data.description}</p>
+				</Card>
+			))}
+		</ul>
+
+	</div>
+
+  <ul class="card-container">
+    {data.map((post) => (
+      <Card title={post.data.title} description={post.data.description} image={post.data.image}>
+        <p slot="desc">{post.data.description}</p>
+      </Card>
+    ))}
+  </ul>
 </Layout>
+
+<style>
+  .destacado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 3px solid gold; /* Borde más grueso y de un color llamativo */
+    background-color: #fdfd96; /* Fondo amarillo claro para resaltar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para darle profundidad */
+    margin: 1rem;
+    padding: 1rem; /* Añadir relleno interno */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+
+  .destacado h2 {
+    margin: 0 0 1rem 0; /* Margen inferior para separar el título del contenido */
+	color: black;
+	text-transform: uppercase;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .card-container > li {
+    display: flex;
+    flex: 1 1 300px; /* Flexibilidad para ajustar el tamaño */
+    margin: 1rem;
+    max-width: 300px; /* Tamaño máximo de las tarjetas */
+  }
+</style>
