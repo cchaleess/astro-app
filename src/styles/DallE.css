@@ -1,0 +1,59 @@
+.dalle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+
+.dalle__header h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.dalle__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.dalle__form textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: #2e2e2e;
+  color: #fff;
+  resize: vertical; /* Permite redimensionar verticalmente */
+  min-height: 100px; /* Altura mínima para el textarea */
+}
+
+.dalle__form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #0070f3;
+  color: #fff;
+  cursor: pointer;
+}
+
+.dalle__form button:hover {
+  background-color: #005bb5;
+}
+
+.dalle__spinner {
+  margin-top: 1rem;
+}
+
+.dalle__image {
+  margin-top: 2rem;
+}
+
+.dalle__image img {
+  max-width: 100%;
+  border-radius: 8px;
+}

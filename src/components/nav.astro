@@ -1,14 +1,16 @@
-
 <nav class="navbar">
   <div class="container">  
     <ul class="nav-links">
       <li>
         <a href="/chatbot">Chatbot</a>
+      </li>
+      <li>
         <a href="/image/">Image</a>
-    </li>
+      </li>
     </ul>
   </div>
 </nav>
+
 <style>
 .navbar {
   background-color: var(--primary-color);
@@ -17,19 +19,27 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 10rem; /* Espacio entre los elementos de la lista */
+}
+
+.nav-links li {
+  margin: 0 1rem; /* Espacio a los lados de cada <li> */
 }
 
 .nav-links a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
   color: var(--text-color);
-  font-size: 1rem;
+  font-size: 2rem;
 }
 
 .nav-links a:hover {
